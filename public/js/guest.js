@@ -1977,7 +1977,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       apiUrl: 'http://127.0.0.1:8000/api/posts',
-      posts: null
+      posts: null,
+      pages: {}
     };
   },
   mounted: function mounted() {
@@ -1987,8 +1988,8 @@ __webpack_require__.r(__webpack_exports__);
     getPosts: function getPosts() {
       var _this = this;
 
-      axios.get('').then(function (res) {
-        _this.posts = res.data;
+      axios.get(this.apiUrl).then(function (res) {
+        _this.posts = res.data.data;
         console.log(_this.posts);
       });
     }
@@ -3399,7 +3400,10 @@ var render = function () {
         _c("h1", [_vm._v("i miei post")]),
         _vm._v(" "),
         _vm._l(_vm.posts, function (post) {
-          return _c("PostItem", { key: post.id, attrs: { post: post } })
+          return _c("PostItem", {
+            key: "post" + post.id,
+            attrs: { post: post },
+          })
         }),
       ],
       2

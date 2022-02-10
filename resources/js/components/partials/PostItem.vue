@@ -13,9 +13,10 @@
 <script>
 export default {
   name: 'PostItem',
+  
   props: {
     'post': Object
-  }
+  },
 }
 </script>
 

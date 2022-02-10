@@ -7,7 +7,7 @@
 
         <PostItem 
           v-for="post in posts"
-          :key="post.id"
+          :key="`post${post.id}`"
           :post="post"
         />
 
@@ -22,13 +22,15 @@ import PostItem from './partials/PostItem';
 
 export default {
   name: 'Posts',
+
   components: {
     PostItem
   },
   data(){
     return{
       apiUrl: 'http://127.0.0.1:8000/api/posts',
-      posts: null
+      posts: null,
+      pages: {}
     }
   },
   mounted(){
@@ -36,9 +38,9 @@ export default {
   },
   methods:{
     getPosts(){
-      axios.get('')
+      axios.get(this.apiUrl)
       .then(res => {
-        this.posts = res.data
+        this.posts = res.data.data;
         console.log(this.posts);
       })
     }

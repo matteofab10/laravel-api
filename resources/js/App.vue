@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import Header from './components/partials/Header';
-import Footer from './components/partials/Footer';
-import Posts from './components/Posts';
+import Header from './components/partials/Header.vue';
+import Footer from './components/partials/Footer.vue';
+import Posts from './components/Posts.vue';
 
 
 export default {

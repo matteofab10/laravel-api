@@ -1908,9 +1908,9 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_partials_Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/partials/Header */ "./resources/js/components/partials/Header.vue");
-/* harmony import */ var _components_partials_Footer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/partials/Footer */ "./resources/js/components/partials/Footer.vue");
-/* harmony import */ var _components_Posts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Posts */ "./resources/js/components/Posts.vue");
+/* harmony import */ var _components_partials_Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/partials/Header.vue */ "./resources/js/components/partials/Header.vue");
+/* harmony import */ var _components_partials_Footer_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/partials/Footer.vue */ "./resources/js/components/partials/Footer.vue");
+/* harmony import */ var _components_Posts_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Posts.vue */ "./resources/js/components/Posts.vue");
 //
 //
 //
@@ -1932,9 +1932,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   components: {
-    Header: _components_partials_Header__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Footer: _components_partials_Footer__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Posts: _components_Posts__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Header: _components_partials_Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Footer: _components_partials_Footer_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Posts: _components_Posts_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -1949,7 +1949,26 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _partials_PostItem__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/PostItem */ "./resources/js/components/partials/PostItem.vue");
+/* harmony import */ var _partials_PostItem_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/PostItem.vue */ "./resources/js/components/partials/PostItem.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1972,11 +1991,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Posts',
   components: {
-    PostItem: _partials_PostItem__WEBPACK_IMPORTED_MODULE_0__["default"]
+    PostItem: _partials_PostItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
     return {
-      apiUrl: 'http://127.0.0.1:8000/api/posts',
+      apiUrl: 'http://127.0.0.1:8000/api/posts?page=',
       posts: null,
       pages: {}
     };
@@ -1988,9 +2007,14 @@ __webpack_require__.r(__webpack_exports__);
     getPosts: function getPosts() {
       var _this = this;
 
-      axios.get(this.apiUrl).then(function (res) {
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios.get(this.apiUrl + page).then(function (res) {
         _this.posts = res.data.data;
         console.log(_this.posts);
+        _this.pages = {
+          current: res.data.current_page,
+          last: res.data.last_page
+        };
       });
     }
   }
@@ -2084,6 +2108,17 @@ __webpack_require__.r(__webpack_exports__);
   name: 'PostItem',
   props: {
     'post': Object
+  },
+  computed: {
+    formatDate: function formatDate() {
+      var d = new Date(this.post.created_at);
+      var day = d.getDate();
+      var month = d.getMonth() + 1;
+      var year = d.getFullYear();
+      if (day < 10) day = '0' + day;
+      if (month < 10) month = '0' + month;
+      return "".concat(day, " / ").concat(month, " / ").concat(year);
+    }
   }
 });
 
@@ -2101,7 +2136,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "main[data-v-4ac4d2f8] {\n  padding: 30px 0;\n}\nmain h1[data-v-4ac4d2f8] {\n  margin-bottom: 20px;\n}", ""]);
+exports.push([module.i, "main[data-v-4ac4d2f8] {\n  padding: 30px 0;\n}\nmain h1[data-v-4ac4d2f8] {\n  margin-bottom: 20px;\n}\nmain button[data-v-4ac4d2f8] {\n  padding: 5px 10px;\n}\nmain .btn-numbers[data-v-4ac4d2f8] {\n  margin: 5px;\n}", ""]);
 
 // exports
 
@@ -2158,7 +2193,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "article[data-v-49c43f95] {\n  margin-bottom: 20px;\n}\narticle .date[data-v-49c43f95] {\n  font-size: 12px;\n  font-style: italic;\n}\narticle .text[data-v-49c43f95] {\n  padding: 5px 0;\n}\narticle a[data-v-49c43f95] {\n  color: black;\n  text-decoration: none;\n}\narticle a[data-v-49c43f95]:hover {\n  text-decoration: underline;\n}", ""]);
+exports.push([module.i, "article[data-v-49c43f95] {\n  margin-bottom: 30px;\n}\narticle .date[data-v-49c43f95] {\n  margin: 5px 0;\n  font-size: 12px;\n  font-style: italic;\n}\narticle .text[data-v-49c43f95] {\n  padding: 5px 0;\n}\narticle a[data-v-49c43f95] {\n  color: blue;\n  text-decoration: none;\n}\narticle a[data-v-49c43f95]:hover {\n  text-decoration: underline;\n}", ""]);
 
 // exports
 
@@ -3405,6 +3440,49 @@ var render = function () {
             attrs: { post: post },
           })
         }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            attrs: { disabled: _vm.pages.current === 1 },
+            on: {
+              click: function ($event) {
+                return _vm.getPosts(_vm.pages.current - 1)
+              },
+            },
+          },
+          [_vm._v("prev")]
+        ),
+        _vm._v(" "),
+        _vm._l(_vm.pages.last, function (page) {
+          return _c(
+            "button",
+            {
+              key: "button" + page,
+              staticClass: "btn-numbers",
+              attrs: { disabled: _vm.pages.current === page },
+              on: {
+                click: function ($event) {
+                  return _vm.getPosts(page)
+                },
+              },
+            },
+            [_vm._v(_vm._s(page))]
+          )
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            attrs: { disabled: _vm.pages.current === _vm.pages.last },
+            on: {
+              click: function ($event) {
+                return _vm.getPosts(_vm.pages.current + 1)
+              },
+            },
+          },
+          [_vm._v("next")]
+        ),
       ],
       2
     ),
@@ -3508,7 +3586,7 @@ var render = function () {
       _c("a", { attrs: { href: "#" } }, [_vm._v(_vm._s(_vm.post.title))]),
     ]),
     _vm._v(" "),
-    _c("p", { staticClass: "date" }, [_vm._v(_vm._s(_vm.post.created_at))]),
+    _c("p", { staticClass: "date" }, [_vm._v(_vm._s(_vm.formatDate))]),
     _vm._v(" "),
     _c("p", { staticClass: "text" }, [_vm._v(_vm._s(_vm.post.content))]),
   ])
